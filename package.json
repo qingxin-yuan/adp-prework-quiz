@@ -1,0 +1,23 @@
+{
+  "name": "adp-prework-quiz",
+  "version": "1.0.0",
+  "description": "ADP prework - simple quiz web app",
+  "main": "script.js",
+  "dependencies": {
+    "json-server": "^0.12.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qingxin-yuan/adp-prework-quiz.git"
+  },
+  "author": "qingxin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qingxin-yuan/adp-prework-quiz/issues"
+  },
+  "homepage": "https://github.com/qingxin-yuan/adp-prework-quiz#readme"
+}
