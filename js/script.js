@@ -12,7 +12,9 @@ score = 0;
     data = data[0];
     console.log(data);
     
-    $('h1').before(`<p>Score: ${score}</p>`);
+    $('h1').css('font-size', '3rem').before(`<p>Score: ${score}</p>`);
+
+    $('ul').addClass('quiz-content');
 
     question(data.questions);
   });
@@ -27,7 +29,9 @@ score = 0;
       data = data[1];
       console.log(data);
       
-      $('h1').before(`<p>Score: ${score}</p>`);
+      $('h1').css('font-size', '3rem').before(`<p>Score: ${score}</p>`);
+
+      $('ul').addClass('quiz-content');
 
       question(data.questions);
       
@@ -43,10 +47,10 @@ const question = (questions)=>{
   
   $('h1').text(questions[i].question)
   
-  $('.main-content').empty();
+  $('ul').empty();
   
   questions[i].answers.forEach(answer=>{
-    $('.main-content').append(`<li>${answer.content}</li>`);
+    $('ul').append(`<li>${answer.content}</li>`);
     
     if (answer.value){
       $('li:last-child').addClass('correct-answer');
@@ -54,7 +58,7 @@ const question = (questions)=>{
 
   });
 
-
+  // function to upddate score
   $('.correct-answer').on('click',()=>{
     
     score ++;
@@ -62,34 +66,35 @@ const question = (questions)=>{
     $('p').text(`Score: ${score}`);
   })
   
+
+  //function to add feedback border in response to choice selected
   $('li').on('click',(event)=>{
     
+
     if ($(event.target).hasClass('correct-answer')){
-      // console.log($(event.target));
+     
       $(event.target).css('border','5px solid green');
     }
     else{
-      // console.log('red');
+     
       $(event.target).css('border','5px solid red');
     }
 
-
+    //update number of finished quiz questions
     i++;
     
     if(i < questions.length){
+      //display next question with 2s delay
       setTimeout(()=>{question(questions)}, 2000);
       
     }
     else{
-      // console.log(score,i);
+  
+      $('p').addClass('total-score');
       setTimeout(()=>{result(score, questions.length)}, 2000);
     }
     
   })
-  
-  //update score every time correct answer is selected
-  
-  
   
 }//end of question function
 
@@ -98,18 +103,15 @@ const result = (goal, numQuestion)=>{
   
   $('h1').text('');
   $('ul').empty();
-  
-  // console.log(numQuestion);
 
   if ((goal/numQuestion)<0.5){
-    // console.log(goal);
-    // console.log(!!((goal/numQuestion)<0.5));
-    $('h1').prepend(`Sorry, you failed`);
+  
+    $('h1').prepend(`Sorry, you failed :(`);
   }
   else{
-    // console.log('yay');
-    $('h1').prepend(`Congrats, you Passed!`);
+
+    $('h1').prepend(`Yay, you Passed!`);
   }
   
-  $('p').addClass('result');
+  $('p').addClass('result').append(` out of ${numQuestion}`);
 }//end of result function
