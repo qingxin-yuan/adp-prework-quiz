@@ -1,73 +1,26 @@
 # App Developer Entrance Project
+A simple client-side quiz app based on the provided requirements, data and views as RED Academy App Dev entrance test. Cloned from https://github.com/redacademy/
 
-Create a client-side quiz app based on the provided requirements, data and views.
+## Setup
+**1. Install dependencies**
+`> npm install`
+**2. Run json-server**
+`> json-server --watch src/quiz.json`
+**3. Run Gulp**
+`> gulp`
 
+## Features
+* JS ES6 syntax, jQuery 
+* CSS/SASS
 
-## Requirements
+## Dev Tools
+* Gulp - minimizing files for production, eslint
+* Babel - transpiling ES6 into ES5
 
-- clone this repo as a starter
-- use only HTML/CSS/JS
-- use any frameworks or libraries of your choice (ex: JQuery, React, Bootstrap)
+## Screenshot
+![Alt Text](/diagrams/quiz-start-screen.png?raw=true "quiz start screen")
+![Alt Text](/diagrams/quiz-question-screen.png?raw=true "quiz questioin screen")
 
-## Quiz Data
-
-Quiz data can be found in [src/quiz.json](./src/quiz.json). This content will be loaded when a user starts a quiz.
-
-For every question there is one correct answer (with a value of `true`) and three incorrect answers with a value of `false`. The `content` field contains a possible answer.
-
-```js
-{
-  quizzes: [{
-    title: 'Quiz 1',
-    questions: [{
-      question: 'Question 1?'
-      answers: [{
-        content: 'Answer 1.',
-        value: false // wrong answer
-      }, {
-        content: 'Answer 2.',
-        value: true // correct answer
-      }]
-    }]
-  }]
-}
-```
-
-## Views
-
-Feel free to be creative and style your views. As a bare minimum, please create the following three views:
-
-##### 01 - Welcome Screen
-
-![01 - Welcome View](./diagrams/quiz-01.png)
-
-The view presented when the user starts the app.
-
-- load either quiz 1 or quiz 2 on click
-
-##### 02 - Quiz View
-
-![02 - Quiz View](./diagrams/quiz-02.png)
-
-While the user is selecting their answers:
-
-- display all 3 questions with possible answers
-- provide feedback when a user clicks on an answer. Consider styling correct or wrong answers with green or red button colors
-- show the next question after a time delay of 2 seconds
-- track the number of correct answers in the top right corner
-
-##### 03 - Completion View
-
-![03 - Completion View](./diagrams/quiz-03.png)
-
-When the user has finished answering all three questions:
-
-- display the final score
-- show a "pass" message if more than 50% of the answers were correct, show a "fail" message otherwise
-
-## Upon Project Completion
-
-- push your finished app to Github
-- provide your username and repo to an instructor
-
-Good luck!
+## What I learned
+* One of the hiccups during development is to pulling data from .json file. Because the .json file is local, ajax request is not possible without any extra setup. I used a node module `json-server` to locally serve the .json file hence ajax request works. Another possible solution was to copy paste the data directly into the .js file, and pull data through object properties. 
+* Another success is to familiarize myself with JS ES6 syntax, especially the arrow function. However, despite the upgraded, simplified syntax, there was some unexpected behavior when I tried to combine `.on('click',()=>{ }` with `$(this)` in the callback function. The solution I found was to use `event.target` instead, and it behaved as expected. 

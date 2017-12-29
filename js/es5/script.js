@@ -1,7 +1,5 @@
 'use strict';
 
-// import { setTimeout } from "timers";
-
 var i = 0,
     score = 0;
 

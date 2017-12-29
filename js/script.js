@@ -1,5 +1,3 @@
-// import { setTimeout } from "timers";
-
 let i = 0,
 score = 0;
 
