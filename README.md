@@ -2,11 +2,17 @@
 A simple client-side quiz app based on the provided requirements, data and views as RED Academy App Dev entrance test. Cloned from https://github.com/redacademy/
 
 ## Setup
+
 **1. Install dependencies**  
+
 `> npm install`  
-**2. Run json-server**  
+
+**2. Run json-server**
+
 `> json-server --watch src/quiz.json`  
+
 **3. Run Gulp**  
+
 `> gulp`  
 
 ## Features
