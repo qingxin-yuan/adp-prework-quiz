@@ -1,5 +1,7 @@
 'use strict';
 
+// import { setTimeout } from "timers";
+
 var i = 0,
     score = 0;
 
@@ -53,15 +55,27 @@ var question = function question(questions) {
     $('p').text('Score: ' + score);
   });
 
-  $('li').on('click', function () {
+  $('li').on('click', function (event) {
+
+    if ($(event.target).hasClass('correct-answer')) {
+      // console.log($(event.target));
+      $(event.target).css('border', '5px solid green');
+    } else {
+      // console.log('red');
+      $(event.target).css('border', '5px solid red');
+    }
 
     i++;
 
     if (i < questions.length) {
-      question(questions);
+      setTimeout(function () {
+        question(questions);
+      }, 2000);
     } else {
-      console.log(score, i);
-      result(score, questions.length);
+      // console.log(score,i);
+      setTimeout(function () {
+        result(score, questions.length);
+      }, 2000);
     }
   });
 
@@ -78,8 +92,8 @@ var result = function result(goal, numQuestion) {
   // console.log(numQuestion);
 
   if (goal / numQuestion < 0.5) {
-    console.log(goal);
-    console.log(!!(goal / numQuestion < 0.5));
+    // console.log(goal);
+    // console.log(!!((goal/numQuestion)<0.5));
     $('h1').prepend('Sorry, you failed');
   } else {
     // console.log('yay');

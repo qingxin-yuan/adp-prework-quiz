@@ -17,3 +17,9 @@ li {
 
 li:hover {
   cursor: pointer; }
+
+.green {
+  border: 5px solid green; }
+
+.red {
+  border: 5px solid red; }
