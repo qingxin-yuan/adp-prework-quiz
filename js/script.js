@@ -9,8 +9,10 @@ score = 0;
     
     data = data[0];
     console.log(data);
-    question(data.questions);
+    
     $('h1').before(`<p>Score: ${score}</p>`);
+
+    question(data.questions);
   });
   
 })
@@ -22,8 +24,11 @@ score = 0;
     
       data = data[1];
       console.log(data);
-      question(data.questions);
+      
       $('h1').before(`<p>Score: ${score}</p>`);
+
+      question(data.questions);
+      
     
     });
   })
@@ -44,23 +49,10 @@ const question = (questions)=>{
     if (answer.value){
       $('li:last-child').addClass('correct-answer');
     }
+
   });
+
   
-  
-  $('li').on('click',()=>{
-    
-    i++;
-    
-    if(i<questions.length){
-      question(questions);
-    }
-    else{
-      result(score, questions.length);
-    }
-    
-  })
-  
-  //update score every time correct answer is selected
   $('.correct-answer').on('click',()=>{
     
     score ++;
@@ -68,20 +60,42 @@ const question = (questions)=>{
     $('p').text(`Score: ${score}`);
   })
   
+  $('li').on('click',()=>{
+    
+    i++;
+    
+    if(i < questions.length){
+      question(questions);
+    }
+    else{
+      console.log(score,i)
+      result(score, questions.length);
+    }
+    
+  })
+  
+  //update score every time correct answer is selected
+  
+  
   
 }//end of question function
 
 
-const result = (score, numQuestion)=>{
+const result = (goal, numQuestion)=>{
   
   $('h1').text('');
   $('ul').empty();
   
-  if (score/numQuestion<0.5){
-    $('h1').before(`<p>Sorry, you failed</p>`)
+  // console.log(numQuestion);
+
+  if ((goal/numQuestion)<0.5){
+    console.log(goal);
+    console.log(!!((goal/numQuestion)<0.5));
+    $('h1').prepend(`Sorry, you failed`);
   }
   else{
-    $('h1').before(`<p>Congrats, you Passed!</p>`)
+    // console.log('yay');
+    $('h1').prepend(`Congrats, you Passed!`);
   }
   
   $('p').addClass('result');

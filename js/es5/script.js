@@ -11,8 +11,10 @@ var i = 0,
 
       data = data[0];
       console.log(data);
-      question(data.questions);
+
       $('h1').before('<p>Score: ' + score + '</p>');
+
+      question(data.questions);
     });
   });
 
@@ -22,8 +24,10 @@ var i = 0,
 
       data = data[1];
       console.log(data);
-      question(data.questions);
+
       $('h1').before('<p>Score: ' + score + '</p>');
+
+      question(data.questions);
     });
   });
 })(jQuery);
@@ -42,6 +46,13 @@ var question = function question(questions) {
     }
   });
 
+  $('.correct-answer').on('click', function () {
+
+    score++;
+
+    $('p').text('Score: ' + score);
+  });
+
   $('li').on('click', function () {
 
     i++;
@@ -49,29 +60,30 @@ var question = function question(questions) {
     if (i < questions.length) {
       question(questions);
     } else {
+      console.log(score, i);
       result(score, questions.length);
     }
   });
 
   //update score every time correct answer is selected
-  $('.correct-answer').on('click', function () {
 
-    score++;
-
-    $('p').text('Score: ' + score);
-  });
 }; //end of question function
 
 
-var result = function result(score, numQuestion) {
+var result = function result(goal, numQuestion) {
 
   $('h1').text('');
   $('ul').empty();
 
-  if (score / numQuestion < 0.5) {
-    $('h1').before('<p>Sorry, you failed</p>');
+  // console.log(numQuestion);
+
+  if (goal / numQuestion < 0.5) {
+    console.log(goal);
+    console.log(!!(goal / numQuestion < 0.5));
+    $('h1').prepend('Sorry, you failed');
   } else {
-    $('h1').before('<p>Congrats, you Passed!</p>');
+    // console.log('yay');
+    $('h1').prepend('Congrats, you Passed!');
   }
 
   $('p').addClass('result');
