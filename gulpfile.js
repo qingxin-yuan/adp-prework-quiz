@@ -24,7 +24,7 @@ gulp.task('sass', ()=> {
 });
 //transpile es5  files into es6
 gulp.task('babel', () => {
-  return gulp.src('./js/*.js')
+  return gulp.src('./js/script.js')
       .pipe(babel())
       .pipe(gulp.dest('./js/es5'))
 });

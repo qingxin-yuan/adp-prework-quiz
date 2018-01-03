@@ -1,20 +1,17 @@
-let i = 0,
-score = 0;
-
 (function($){
-  
+
+  let i = 0,
+      score = 0;
+
+      
   $('#quiz-1').on('click',()=>{
     
     $.getJSON('http://localhost:3000/quizzes',(data)=>{
     
     data = data[0];
-    console.log(data);
-    
-    $('h1').css('font-size', '3rem').before(`<p>Score: ${score}</p>`);
 
-    $('ul').addClass('quiz-content');
-
-    question(data.questions);
+    preLoop(score);
+    questionLoop(data.questions, i, score);
   });
   
 })
@@ -25,15 +22,10 @@ score = 0;
     $.getJSON('http://localhost:3000/quizzes',(data)=>{
     
       data = data[1];
-      console.log(data);
+ 
+      preLoop(score);
+      questionLoop(data.questions, i, score);
       
-      $('h1').css('font-size', '3rem').before(`<p>Score: ${score}</p>`);
-
-      $('ul').addClass('quiz-content');
-
-      question(data.questions);
-      
-    
     });
   })
 
@@ -41,10 +33,32 @@ score = 0;
 
 
 
-const question = (questions)=>{
-  
+/*
+* Below are functions
+*/
+
+/*
+* function to append text before looping through questions
+*/
+const preLoop = (score)=>{
+
+  $('h1').css('font-size', '3rem').before(`<p>Score: ${score}</p>`);
+
+  $('ul').addClass('quiz-content');
+
+}
+
+
+
+/*
+* function to loop through questions
+*/
+const questionLoop = (questions, i, score)=>{
+
+  //modify question each time
   $('h1').text(questions[i].question)
   
+  //modify answers for each question
   $('ul').empty();
   
   questions[i].answers.forEach(answer=>{
@@ -65,7 +79,7 @@ const question = (questions)=>{
   })
   
 
-  //function to add feedback border in response to choice selected
+  //Add feedback border in response to each choice selected
   $('li').on('click',(event)=>{
     
 
@@ -83,7 +97,7 @@ const question = (questions)=>{
     
     if(i < questions.length){
       //display next question with 2s delay
-      setTimeout(()=>{question(questions)}, 2000);
+      setTimeout(()=>{questionLoop(questions, i, score)}, 2000);
       
     }
     else{
@@ -94,9 +108,13 @@ const question = (questions)=>{
     
   })
   
-}//end of question function
+}//end of questionLoop function
 
 
+
+/*
+* function to display result
+*/
 const result = (goal, numQuestion)=>{
   
   $('h1').text('');

@@ -1,22 +1,18 @@
 'use strict';
 
-var i = 0,
-    score = 0;
-
 (function ($) {
+
+  var i = 0,
+      score = 0;
 
   $('#quiz-1').on('click', function () {
 
     $.getJSON('http://localhost:3000/quizzes', function (data) {
 
       data = data[0];
-      console.log(data);
 
-      $('h1').css('font-size', '3rem').before('<p>Score: ' + score + '</p>');
-
-      $('ul').addClass('quiz-content');
-
-      question(data.questions);
+      preLoop(score);
+      questionLoop(data.questions, i, score);
     });
   });
 
@@ -25,21 +21,36 @@ var i = 0,
     $.getJSON('http://localhost:3000/quizzes', function (data) {
 
       data = data[1];
-      console.log(data);
 
-      $('h1').css('font-size', '3rem').before('<p>Score: ' + score + '</p>');
-
-      $('ul').addClass('quiz-content');
-
-      question(data.questions);
+      preLoop(score);
+      questionLoop(data.questions, i, score);
     });
   });
 })(jQuery);
 
-var question = function question(questions) {
+/*
+* Below are functions
+*/
 
+/*
+* function to append text before looping through questions
+*/
+var preLoop = function preLoop(score) {
+
+  $('h1').css('font-size', '3rem').before('<p>Score: ' + score + '</p>');
+
+  $('ul').addClass('quiz-content');
+};
+
+/*
+* function to loop through questions
+*/
+var questionLoop = function questionLoop(questions, i, score) {
+
+  //modify question each time
   $('h1').text(questions[i].question);
 
+  //modify answers for each question
   $('ul').empty();
 
   questions[i].answers.forEach(function (answer) {
@@ -58,7 +69,7 @@ var question = function question(questions) {
     $('p').text('Score: ' + score);
   });
 
-  //function to add feedback border in response to choice selected
+  //Add feedback border in response to each choice selected
   $('li').on('click', function (event) {
 
     if ($(event.target).hasClass('correct-answer')) {
@@ -75,7 +86,7 @@ var question = function question(questions) {
     if (i < questions.length) {
       //display next question with 2s delay
       setTimeout(function () {
-        question(questions);
+        questionLoop(questions, i, score);
       }, 2000);
     } else {
 
@@ -85,9 +96,12 @@ var question = function question(questions) {
       }, 2000);
     }
   });
-}; //end of question function
+}; //end of questionLoop function
 
 
+/*
+* function to display result
+*/
 var result = function result(goal, numQuestion) {
 
   $('h1').text('');
